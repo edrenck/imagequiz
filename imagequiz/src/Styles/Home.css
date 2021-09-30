@@ -1,0 +1,15 @@
+.flowerName {
+  border: 0px;
+}
+
+.card-img-top {
+  height: 18rem;
+  padding: auto;
+  overflow: hidden;
+}
+
+.card {
+  width: auto;
+  height: 20rem;
+  margin-bottom: 10px;
+}

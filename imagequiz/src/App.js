@@ -1,9 +1,9 @@
-import "./App.css";
+import "./Styles/App.css";
 import { HashRouter, Route } from "react-router-dom";
-import Registration from "./Registration";
-import Login from "./Login";
-import Home from "./Home";
-import Layout from "./Layout";
+import Registration from "./components/Registration";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import Layout from "./components/Layout";
 
 function App() {
   return (
