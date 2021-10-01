@@ -4,11 +4,13 @@ import Registration from "./components/Registration";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Layout from "./components/Layout";
+import { Container } from "react-bootstrap";
 
 function App() {
   return (
     <HashRouter>
-      <Layout>
+      <Layout></Layout>
+      <Container>
         <Route exact path="/">
           <Home />
         </Route>
@@ -18,7 +20,7 @@ function App() {
         <Route exact path="/login">
           <Login />
         </Route>
-      </Layout>
+      </Container>
     </HashRouter>
   );
 }

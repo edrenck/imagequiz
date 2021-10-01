@@ -1,5 +1,6 @@
 import UserData from "./UserData";
-import { Form, Row, Col, FloatingLabel, Button } from "react-bootstrap";
+import { Form, Col, FloatingLabel, Button } from "react-bootstrap";
+import "../Styles/Form.css";
 
 const registerUser = (form) => {
   form.preventDefault();
@@ -16,19 +17,20 @@ const registerUser = (form) => {
   }
 };
 
-let Registration = () => {
+const Registration = () => {
   return (
     <>
-      <Form onSubmit={registerUser}>
-        <Row>
+      <h1>Register to our website below.</h1>
+      <Form onSubmit={registerUser} className="justify-content-center">
+        <div className="folderContainer">
           <Col md>
             <FloatingLabel controlId="nameInput" label="Name">
-              <Form.Control required palceholder="Name" />
+              <Form.Control required placeholder="Name" />
             </FloatingLabel>
           </Col>
           <Col md>
             <FloatingLabel controlId="usernameInput" label="Username">
-              <Form.Control required palceholder="Username" />
+              <Form.Control required placeholder="Username" />
             </FloatingLabel>
           </Col>
           <Col md>
@@ -36,14 +38,11 @@ let Registration = () => {
               <Form.Control required type="password" placeholder="Password" />
             </FloatingLabel>
           </Col>
-        </Row>
-        <Row>
-          <Col className="sm-12">
-            <Button variant="danger" type="submit">
-              Login
-            </Button>
+          <Col className="d-flex justify-content-center">
+            <Button type="submit">Register</Button>
+            <Button>Login instead</Button>
           </Col>
-        </Row>
+        </div>
       </Form>
     </>
   );
