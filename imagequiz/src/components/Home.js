@@ -1,6 +1,7 @@
 import "../Styles/Home.css";
 import { Row, Col, Card } from "react-bootstrap";
-import flowers from "../data";
+import flowers from "../flowers";
+
 let Home = () => {
   return (
     <>
@@ -13,7 +14,10 @@ let Home = () => {
             <Card>
               <Card.Img variant="top" src={flower.picture} />
               <Card.Body>
-                <Card.Title>{flower.name}</Card.Title>
+                <Card.Title href={`#/quiz/${flower.name}`}>
+                  {flower.name}
+                </Card.Title>
+                <Card.Link href={`#/quiz/${flower.name}`}>Go to Quiz</Card.Link>
               </Card.Body>
             </Card>
           </Col>

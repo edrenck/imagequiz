@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Layout from "./components/Layout";
 import { Container } from "react-bootstrap";
+import Quiz from "./components/Quiz";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route exact path="/login">
           <Login />
+        </Route>
+        <Route path="/quiz/:quizName">
+          <Quiz />
         </Route>
       </Container>
     </HashRouter>
