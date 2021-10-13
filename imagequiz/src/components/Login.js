@@ -3,25 +3,26 @@ import UserData from "./UserData";
 import "../Styles/Form.css";
 import { useState } from "react";
 
-const loginUser = (form, handleShow, setMessage) => {
-  form.preventDefault();
-  let username = form.target.usernameInput.value;
-  let password = form.target.passwordInput.value;
+const Login = ({ authenticated }) => {
+  const loginUser = (form) => {
+    form.preventDefault();
+    let username = form.target.usernameInput.value;
+    let password = form.target.passwordInput.value;
 
-  let account = UserData.allUsers.get(username);
-  if (account) {
-    if (account.password === password) {
-      UserData.currentUser = username;
-      setMessage(`User ${account.name} just logged in`);
+    let account = UserData.allUsers.get(username);
+    if (account) {
+      if (account.password === password) {
+        UserData.currentUser = username;
+        setMessage(`User ${account.name} just logged in`);
+        handleShow();
+        localStorage.setItem("user", account.name);
+        authenticated();
+      }
+    } else {
+      setMessage(`Login/Password incorrect`);
       handleShow();
     }
-  } else {
-    setMessage(`Login/Password incorrect`);
-    handleShow();
-  }
-};
-
-const Login = () => {
+  };
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -31,7 +32,7 @@ const Login = () => {
     <>
       <h1>Login into your ImageQuiz account</h1>
       <Form
-        onSubmit={(form) => loginUser(form, handleShow, setMessage)}
+        onSubmit={(form) => loginUser(form)}
         className="justify-content-center"
       >
         <div className="folderContainer">

@@ -6,11 +6,24 @@ import Home from "./components/Home";
 import Layout from "./components/Layout";
 import { Container } from "react-bootstrap";
 import Quiz from "./components/Quiz";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(localStorage.getItem("user"));
+
+  const authenticated = () => {
+    console.log("authenticated");
+    setUser(localStorage.getItem("user"));
+  };
+
+  const loggedOff = () => {
+    localStorage.clear();
+    setUser(undefined);
+  };
+
   return (
     <HashRouter>
-      <Layout></Layout>
+      <Layout user={user} loggedOff={loggedOff}></Layout>
       <Container>
         <Route exact path="/">
           <Home />
@@ -19,7 +32,7 @@ function App() {
           <Registration />
         </Route>
         <Route exact path="/login">
-          <Login />
+          <Login authenticated={authenticated} />
         </Route>
         <Route path="/quiz/:quizName">
           <Quiz />

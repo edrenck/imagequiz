@@ -3,11 +3,7 @@ import { Button, Row, Col } from "react-bootstrap";
 import { Image } from "react-bootstrap";
 import { useState } from "react";
 import "../Styles/Question.css";
-
-const getFlowerName = () => {
-  const name = window.location.href.split("/");
-  return name[name.length - 1];
-};
+import { useParams } from "react-router";
 
 const findQuestions = (name) => {
   for (let quiz of quizzes) {
@@ -19,8 +15,8 @@ const findQuestions = (name) => {
 
 let Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(-1);
-  const name = getFlowerName();
-  const quiz = findQuestions(name);
+  const { quizName } = useParams();
+  const quiz = findQuestions(quizName);
 
   const CreateArrayQuiz = (quiz) => {
     const [score, setScore] = useState(0);
@@ -29,7 +25,7 @@ let Quiz = () => {
       return (
         <Row key={`${q.answer}`}>
           <Col md={6}>
-            <Image fluid src={q.picture} className="quizImage"></Image>
+            <Image fluid src={q.picture} className="card-img-top"></Image>
           </Col>
           <Col md={3}>
             {q.choices.map((c) => (
@@ -103,7 +99,7 @@ let Quiz = () => {
 
   return (
     <>
-      <h1>Quiz for {name}</h1>
+      <h1>Quiz for {quizName}</h1>
       <div className="justify-content-center">
         <div className="questionContainer">
           {currentQuestion >= 0 ? (
