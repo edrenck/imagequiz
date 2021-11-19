@@ -1,6 +1,7 @@
 import UserData from "./UserData";
 import { Form, Col, FloatingLabel, Button } from "react-bootstrap";
 import "../Styles/Form.css";
+import api from "./../communication/api";
 
 const registerUser = (form) => {
   form.preventDefault();
@@ -8,13 +9,7 @@ const registerUser = (form) => {
   let username = form.target.usernameInput.value;
   let password = form.target.passwordInput.value;
 
-  if (!UserData.allUsers.has(username)) {
-    const user = {};
-    user.name = name;
-    user.password = password;
-    UserData.allUsers.set(username, user);
-    console.log(UserData);
-  }
+  api.register(name, username, password).then((x) => console.log(x));
 };
 
 const Registration = () => {

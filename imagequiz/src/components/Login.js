@@ -2,6 +2,7 @@ import { Modal, Col, FloatingLabel, Form, Button } from "react-bootstrap";
 import UserData from "./UserData";
 import "../Styles/Form.css";
 import { useState } from "react";
+import api from "./../communication/api";
 
 const Login = ({ authenticated }) => {
   const loginUser = (form) => {
@@ -9,19 +10,24 @@ const Login = ({ authenticated }) => {
     let username = form.target.usernameInput.value;
     let password = form.target.passwordInput.value;
 
-    let account = UserData.allUsers.get(username);
-    if (account) {
-      if (account.password === password) {
-        UserData.currentUser = username;
-        setMessage(`User ${account.name} just logged in`);
-        handleShow();
-        localStorage.setItem("user", account.name);
-        authenticated();
-      }
-    } else {
-      setMessage(`Login/Password incorrect`);
-      handleShow();
-    }
+    let account = api
+      .login(username, password)
+      .then((x) => {
+        x.isvalid
+          ? localStorage.setItem("email", username)
+          : console.log("invalid login");
+        return x.isvalid;
+      })
+      .then((x) => {
+        if (x) {
+          setMessage(`User ${account.email} just logged in`);
+          handleShow();
+          authenticated();
+        } else {
+          setMessage(`Login/Password incorrect`);
+          handleShow();
+        }
+      });
   };
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");

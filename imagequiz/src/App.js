@@ -9,11 +9,12 @@ import Quiz from "./components/Quiz";
 import { useState } from "react";
 
 function App() {
-  const [user, setUser] = useState(localStorage.getItem("user"));
+  // Change to email
+  const [user, setUser] = useState(localStorage.getItem("email"));
 
   const authenticated = () => {
     console.log("authenticated");
-    setUser(localStorage.getItem("user"));
+    setUser(localStorage.getItem("email"));
   };
 
   const loggedOff = () => {

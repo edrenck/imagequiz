@@ -1,25 +1,23 @@
-import quizzes from "../data";
 import { Button, Row, Col } from "react-bootstrap";
 import { Image } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../Styles/Question.css";
 import { useParams } from "react-router";
-
-const findQuestions = (name) => {
-  for (let quiz of quizzes) {
-    if (quiz[0].answer === name) {
-      return quiz;
-    }
-  }
-};
+import api from "../communication/api";
 
 let Quiz = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(-1);
   const { quizName } = useParams();
-  const quiz = findQuestions(quizName);
+  const [currentQuestion, setCurrentQuestion] = useState(-1);
+  const [quiz, setQuiz] = useState([]);
+  const [score, setScore] = useState(0);
+  let email = localStorage.getItem("email");
+  useEffect(() => {
+    if (quiz.length === 0) {
+      api.getQuiz(quizName).then((x) => setQuiz(x));
+    }
+  }, []);
 
   const CreateArrayQuiz = (quiz) => {
-    const [score, setScore] = useState(0);
     const [choice, setChoice] = useState("");
     const questions = quiz.map((q) => {
       return (
@@ -60,6 +58,9 @@ let Quiz = () => {
               <Button
                 onClick={() => {
                   setCurrentQuestion(currentQuestion + 1);
+                  if (currentQuestion > quiz.length - 2) {
+                    saveScore();
+                  }
                   setChoice("");
                 }}
               >
@@ -96,6 +97,13 @@ let Quiz = () => {
   };
 
   const questions = CreateArrayQuiz(quiz);
+
+  const saveScore = () => {
+    api
+      .saveScore(email, quizName, score)
+      .then((x) => console.log("Score saved succesfully"))
+      .catch((e) => console.log(e));
+  };
 
   return (
     <>
